@@ -1,0 +1,30 @@
+{
+    "mod.pandorica.name": "Pandorica",
+    "mod.pandorica.description": "A few more Nether features mod for 1.16+",
+
+    "itemGroup.pandorica.item_group": "Pandorica",
+
+    "block.pandorica.crumbled_basalt": "Crumbled Basalt",
+    "block.pandorica.eruption_block": "Eruption Block",
+    "block.pandorica.magmatic_netherrack": "Magmatic Netherrack",
+    "block.pandorica.nether_gold_ore": "Nether Gold Ore",
+    "block.pandorica.weeping_button": "Weeping Button",
+    "block.pandorica.weeping_door": "Weeping Door",
+    "block.pandorica.weeping_fence": "Weeping Fence",
+    "block.pandorica.weeping_fence_gate": "Weeping Fence Gate",
+    "block.pandorica.weeping_log": "Weeping Log",
+    "block.pandorica.stripped_weeping_log": "Stripped Weeping Log",
+    "block.pandorica.weeping_planks": "Weeping Planks",
+    "block.pandorica.weeping_pressure_plate": "Weeping Pressure Plate",
+    "block.pandorica.weeping_slab": "Weeping Slab",
+    "block.pandorica.weeping_stairs": "Weeping Stairs",
+    "block.pandorica.weeping_trapdoor": "Weeping Trapdoor",
+    "block.pandorica.weeping_wood": "Weeping Wood",
+    "block.pandorica.stripped_weeping_wood": "Stripped Weeping Wood",
+
+    "item.pandorica.basalt_dust": "Basalt Dust",
+    "item.pandorica.crusted_magma": "Crusted Magma",
+    "item.pandorica.liquefied_bone": "Liquefied Bone",
+
+    "entity.pandorica.liquefied_skeleton": "Liquefied Skeleton"
+}
