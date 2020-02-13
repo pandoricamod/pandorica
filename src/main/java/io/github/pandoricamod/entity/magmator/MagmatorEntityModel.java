@@ -14,14 +14,10 @@ public class MagmatorEntityModel extends EntityModel<MagmatorEntity> {
 
         bone = new ModelPart(this);
         bone.setPivot(0.0F, 24.0F, 0.0F);
-        bone.addCuboid("bone", 3.0F, -37.0F, 0.0F, 8, 37, 8, 0.0F, 0, 53);
-        bone.addCuboid("bone", -19.0F, -37.0F, 0.0F, 8, 37, 8, 0.0F, 0, 53);
-
-        ModelPart bone2 = new ModelPart(this);
-        bone2.setPivot(0.0F, 0.0F, 0.0F);
-        bone.addChild(bone2);
-        bone2.addCuboid("bone2", -12.0F, -33.0F, -3.0F, 16, 12, 14, 0.0F, 0, 27);
-        bone2.addCuboid("bone2", -13.0F, -23.0F, -4.0F, 18, 11, 16, 0.0F, 0, 0);
+        bone.addCuboid("leg_l", -14.0F, -37.0F, -4.0F, 8, 37, 8, 0.0F, 0, 53);
+        bone.addCuboid("leg_r", 8.0F, -37.0F, -4.0F, 8, 37, 8, 0.0F, 0, 53);
+        bone.addCuboid("crest", -8.0F, -28.0F, -8.0F, 18, 11, 16, 0.0F, 0, 0);
+        bone.addCuboid("head", -7.0F, -37.0F, -7.0F, 16, 12, 14, 0.0F, 0, 27);
     }
 
     @Override

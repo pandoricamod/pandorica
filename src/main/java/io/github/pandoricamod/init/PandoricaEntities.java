@@ -19,7 +19,7 @@ public class PandoricaEntities {
     public static final EntityType<MagmatorEntity> MAGMATOR = Registry.register(Registry.ENTITY_TYPE,
             new Identifier(Pandorica.MOD_ID, "magmator"),
             FabricEntityTypeBuilder.create(EntityCategory.MONSTER, MagmatorEntity::new).setImmuneToFire()
-                    .size(EntityDimensions.fixed(2F, 2F)).build());
+                    .size(EntityDimensions.fixed(1.85F, 2.3F)).build());
 
     public static void registerRenderers() {
         EntityRendererRegistry.INSTANCE.register(LIQUEFIED_SKELETON,

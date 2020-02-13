@@ -26,5 +26,6 @@
     "item.pandorica.crusted_magma": "Crusted Magma",
     "item.pandorica.liquefied_bone": "Liquefied Bone",
 
-    "entity.pandorica.liquefied_skeleton": "Liquefied Skeleton"
+    "entity.pandorica.liquefied_skeleton": "Liquefied Skeleton",
+    "entity.pandorica.magmator":  "Magmator"
 }
