@@ -6,7 +6,7 @@ import io.github.pandoricamod.init.*;
 public class PandoricaClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        new QMSoundEvents();
+        new PandoricaSoundEvents();
 
         PandoricaEntities.registerRenderers();
     }
