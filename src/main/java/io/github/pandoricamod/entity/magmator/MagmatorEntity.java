@@ -24,6 +24,7 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class MagmatorEntity extends HostileEntity {
+    public static final String id = "magmator";
     public static final float pounceVelocity = 0.75F;
 
     public MagmatorEntity(EntityType<? extends HostileEntity> type, World world) {
@@ -33,7 +34,7 @@ public class MagmatorEntity extends HostileEntity {
     @SuppressWarnings({"rawtypes","unchecked"})
     protected void initGoals() {
         this.targetSelector.add(1, new FollowTargetGoal(this, PlayerEntity.class, true));
-        this.goalSelector.add(2, new MagmatorPounceGoal(this, pounceVelocity));
+        this.goalSelector.add(2, new PounceAtTargetGoal(this, pounceVelocity));
         this.goalSelector.add(3, new MeleeAttackGoal(this, 1.0D, true));
         this.targetSelector.add(4, new RevengeGoal(this));
         this.goalSelector.add(5, new GoToEntityTargetGoal(this, 0.9D, 32.0F));
@@ -69,12 +70,12 @@ public class MagmatorEntity extends HostileEntity {
         this.playSound(PandoricaSoundEvents.ENTITY_MAGMATOR_STEP, 0.15F, 1.0F);
     }
 
-    static class MagmatorPounceGoal extends Goal {
+    static class PounceAtTargetGoal extends Goal {
         private final MobEntity mob;
         private LivingEntity target;
         private final float velocity;
 
-        public MagmatorPounceGoal(MobEntity rmob, float velocity) {
+        public PounceAtTargetGoal(MobEntity rmob, float velocity) {
             this.mob = rmob;
             this.velocity = velocity;
             setControls(EnumSet.of(Control.JUMP, Control.MOVE));

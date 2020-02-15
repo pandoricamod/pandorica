@@ -18,6 +18,8 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 
 public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
+    public static final String id = "liquefied_skeleton";
+
     public LiquefiedSkeletonEntity(EntityType<? extends WitherSkeletonEntity> entityType_1, World world_1) {
         super(entityType_1, world_1);
     }
@@ -35,10 +37,6 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
     @Override
     protected SoundEvent getDeathSound() {
         return PandoricaSoundEvents.ENTITY_LIQUEFIED_SKELETON_DEATH;
-    }
-
-    SoundEvent getStepSound() {
-        return PandoricaSoundEvents.ENTITY_LIQUEFIED_SKELETON_STEP;
     }
 
     protected void initEquipment(LocalDifficulty localDifficulty_1) {}
@@ -68,7 +66,7 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
         boolean bl = target.damage(DamageSource.mob(this), f);
         if (bl) {
             if (g > 0.0F && target instanceof LivingEntity) {
-                ((LivingEntity)target).takeKnockback(g * 0.5F, (double)MathHelper.sin(this.yaw * 0.017453292F), (double)(-MathHelper.cos(this.yaw * 0.017453292F)));
+                ((LivingEntity)target).takeKnockback(g * 0.5F, MathHelper.sin(this.yaw * 0.017453292F), -MathHelper.cos(this.yaw * 0.017453292F));
                 this.setVelocity(this.getVelocity().multiply(0.6D, 1.0D, 0.6D));
             }
 

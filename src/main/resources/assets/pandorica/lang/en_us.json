@@ -27,5 +27,13 @@
     "item.pandorica.liquefied_bone": "Liquefied Bone",
 
     "entity.pandorica.liquefied_skeleton": "Liquefied Skeleton",
-    "entity.pandorica.magmator":  "Magmator"
+    "entity.pandorica.magmator":  "Magmator",
+
+    "subtitles.entity.magmator.ambient": "Magmator growls",
+    "subtitles.entity.magmator.death": "Magmator dies",
+    "subtitles.entity.magmator.hurt": "Magmator hurts",
+    "subtitles.entity.magmator.step": "Magmator steps",
+    "subtitles.entity.liquefied_skeleton.ambient": "Liquefied Skeleton rattles",
+    "subtitles.entity.liquefied_skeleton.death": "Liquefied Skeleton dies",
+    "subtitles.entity.liquefied_skeleton.hurt": "Liquefied Skeleton hurts"
 }

@@ -1,0 +1,30 @@
+{
+    "entity.magmator.ambient": {
+        "sounds": [],
+        "subtitle": "subtitles.entity.magmator.ambient"
+    },
+    "entity.magmator.death": {
+        "sounds": [],
+        "subtitle": "subtitles.entity.magmator.death"
+    },
+    "entity.magmator.hurt": {
+        "sounds": [],
+        "subtitle": "subtitles.entity.magmator.hurt"
+    },
+    "entity.magmator.step": {
+        "sounds": [],
+        "subtitle": "subtitles.entity.magmator.step"
+    },
+    "entity.liquefied_skeleton.ambient": {
+        "sounds": [],
+        "subtitle": "subtitles.entity.liquefied_skeleton.ambient"
+    },
+    "entity.liquefied_skeleton.death": {
+        "sounds": [],
+        "subtitle": "subtitles.entity.liquefied_skeleton.death"
+    },
+    "entity.liquefied_skeleton.hurt": {
+        "sounds": [],
+        "subtitle": "subtitles.entity.liquefied_skeleton.hurt"
+    }
+}
