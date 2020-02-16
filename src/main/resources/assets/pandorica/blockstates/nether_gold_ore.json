@@ -1,7 +1,20 @@
 {
     "variants": {
-        "": {
-            "model": "pandorica:block/nether_gold_ore"
-        }
+        "": [
+            {
+                "model": "pandorica:block/nether_gold_ore"
+            },
+            {
+                "model": "pandorica:block/nether_gold_ore_mirrored"
+            },
+            {
+                "model": "pandorica:block/nether_gold_ore",
+                "y": 180
+            },
+            {
+                "model": "pandorica:block/nether_gold_ore_mirrored",
+                "y": 180
+            }
+        ]
     }
 }

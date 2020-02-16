@@ -18,6 +18,7 @@ public class PandoricaSoundEvents {
     public static final SoundEvent ENTITY_LIQUEFIED_SKELETON_AMBIENT = entityAmbient(liquefied_skeleton);
     public static final SoundEvent ENTITY_LIQUEFIED_SKELETON_DEATH = entityDeath(liquefied_skeleton);
     public static final SoundEvent ENTITY_LIQUEFIED_SKELETON_HURT = entityHurt(liquefied_skeleton);
+    public static final SoundEvent ENTITY_LIQUEFIED_SKELETON_STEP = entityStep(liquefied_skeleton);
 
     private static SoundEvent register(String id) {
         return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(new Identifier(Pandorica.MOD_ID, id)));

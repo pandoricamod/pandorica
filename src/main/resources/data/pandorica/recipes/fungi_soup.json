@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:warped_fungi"
+        },
+        {
+            "item": "minecraft:crimson_fungi"
+        },
+        {
+            "item": "minecraft:bowl"
+        }
+    ],
+    "result": {
+        "item": "pandorica:fungi_soup"
+    }
+}

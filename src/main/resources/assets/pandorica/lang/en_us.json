@@ -25,9 +25,12 @@
     "item.pandorica.basalt_dust": "Basalt Dust",
     "item.pandorica.crusted_magma": "Crusted Magma",
     "item.pandorica.liquefied_bone": "Liquefied Bone",
+    "item.pandorica.fungi_soup": "Fungi Soup",
 
     "entity.pandorica.liquefied_skeleton": "Liquefied Skeleton",
+    "item.pandorica.liquefied_skeleton_spawn_egg": "Liquefied Skeleton Spawn Egg",
     "entity.pandorica.magmator":  "Magmator",
+    "item.pandorica.magmator_spawn_egg": "Magmator Spawn Egg",
 
     "subtitles.entity.magmator.ambient": "Magmator growls",
     "subtitles.entity.magmator.death": "Magmator dies",
@@ -35,5 +38,6 @@
     "subtitles.entity.magmator.step": "Magmator steps",
     "subtitles.entity.liquefied_skeleton.ambient": "Liquefied Skeleton rattles",
     "subtitles.entity.liquefied_skeleton.death": "Liquefied Skeleton dies",
-    "subtitles.entity.liquefied_skeleton.hurt": "Liquefied Skeleton hurts"
+    "subtitles.entity.liquefied_skeleton.hurt": "Liquefied Skeleton hurts",
+    "subtitles.entity.liquefied_skeleton.step": "Liquefied Skeleton steps"
 }

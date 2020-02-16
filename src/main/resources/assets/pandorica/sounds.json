@@ -1,30 +1,135 @@
 {
     "entity.magmator.ambient": {
-        "sounds": [],
+        "sounds": [
+            {
+                "name": "mob/ravager/idle1",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/idle2",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/idle3",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/idle4",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/idle5",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/idle6",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/idle7",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/idle8",
+                "volume": 1
+            }
+        ],
         "subtitle": "subtitles.entity.magmator.ambient"
     },
     "entity.magmator.death": {
-        "sounds": [],
+        "sounds": [
+            {
+                "name": "mob/ravager/death1",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/death2",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/death3",
+                "volume": 1
+            }
+        ],
         "subtitle": "subtitles.entity.magmator.death"
     },
     "entity.magmator.hurt": {
-        "sounds": [],
+        "sounds": [
+            {
+                "name": "mob/ravager/hurt1",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/hurt2",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/hurt3",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/hurt4",
+                "volume": 1
+            }
+        ],
         "subtitle": "subtitles.entity.magmator.hurt"
     },
     "entity.magmator.step": {
-        "sounds": [],
+        "sounds": [
+            {
+                "name": "mob/ravager/step1",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/step2",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/step3",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/step4",
+                "volume": 1
+            },
+            {
+                "name": "mob/ravager/step5",
+                "volume": 1
+            }
+        ],
         "subtitle": "subtitles.entity.magmator.step"
     },
     "entity.liquefied_skeleton.ambient": {
-        "sounds": [],
+        "sounds": [
+            "mob/wither_skeleton/idle1",
+            "mob/wither_skeleton/idle2",
+            "mob/wither_skeleton/idle3"
+        ],
         "subtitle": "subtitles.entity.liquefied_skeleton.ambient"
     },
     "entity.liquefied_skeleton.death": {
-        "sounds": [],
+        "sounds": [
+            "mob/wither_skeleton/death1",
+            "mob/wither_skeleton/death2"
+        ],
         "subtitle": "subtitles.entity.liquefied_skeleton.death"
     },
     "entity.liquefied_skeleton.hurt": {
-        "sounds": [],
+        "sounds": [
+            "mob/wither_skeleton/hurt1",
+            "mob/wither_skeleton/hurt2",
+            "mob/wither_skeleton/hurt3",
+            "mob/wither_skeleton/hurt4"
+        ],
         "subtitle": "subtitles.entity.liquefied_skeleton.hurt"
+    },
+    "entity.liquefied_skeleton.step": {
+        "sounds": [
+            "mob/wither_skeleton/step1",
+            "mob/wither_skeleton/step2",
+            "mob/wither_skeleton/step3",
+            "mob/wither_skeleton/step4"
+        ],
+        "subtitle": "subtitles.entity.liquefied_skeleton.step"
     }
 }
