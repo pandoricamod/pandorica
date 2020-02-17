@@ -25,6 +25,6 @@ public class PandoricaItems {
     }
     @SuppressWarnings("rawtypes")
     private static Item register(String entity_id, EntityType entity, int primaryColor, int secondaryColor) {
-        return SheetLib.spawnEggItem(Pandorica.MOD_ID, entity_id, Pandorica.ITEM_GROUP, 64, 64, entity, primaryColor, secondaryColor);
+        return SheetLib.spawnEggItem(Pandorica.MOD_ID, entity_id, Pandorica.ITEM_GROUP, 64, entity, primaryColor, secondaryColor);
     }
 }
