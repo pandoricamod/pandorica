@@ -1,7 +1,9 @@
 package io.github.pandoricamod.entity.liquefied_skeleton;
 
+import io.github.pandoricamod.entity.ai.goal.MagmatorPounceAtTargetGoal;
 import io.github.pandoricamod.init.PandoricaSoundEvents;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -57,7 +59,6 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
         targetSelector.add(1, new RevengeGoal(this));
         targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, true));
         targetSelector.add(3, new FollowTargetGoal(this, IronGolemEntity.class, true));
-        targetSelector.add(2, new LiquefiedSkeletonEntity.FollowPlayerIfAngryGoal(this));
     }
 
     public void writeCustomDataToTag(CompoundTag tag) {
@@ -71,7 +72,7 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
 
     @Override
     public boolean canSpawn(IWorld world, SpawnType spawnType) {
-        return !(getPathfindingFavor(new BlockPos(this), world) >= 0.0F);
+        return world.getBlockState(new BlockPos(getX(), getY() - 1, getZ())).getBlock() == Blocks.LAVA;
     }
 
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {}
@@ -132,44 +133,4 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
             }
         }
     }
-
-    static class FollowPlayerIfAngryGoal extends FollowTargetGoal<PlayerEntity> {
-        public FollowPlayerIfAngryGoal(LiquefiedSkeletonEntity liquefied_skeleton) {
-            super(liquefied_skeleton, PlayerEntity.class, true);
-        }
-
-        public boolean canStart() {
-            return super.canStart();
-        }
-    }
-//    static class MoveIntoLavaGoal extends Goal {
-//        private final MobEntityWithAi mob;
-//
-//        public MoveIntoLavaGoal(MobEntityWithAi mob) {
-//            this.mob = mob;
-//        }
-//
-//        public boolean canStart() {
-//            return mob.onGround && !mob.world.getFluidState(new BlockPos(mob)).matches(FluidTags.LAVA);
-//        }
-//
-//        @SuppressWarnings("all")
-//        public void start() {
-//            BlockPos blockPos = null;
-//            Iterable<BlockPos> iterable = BlockPos.iterate(MathHelper.floor(mob.getX() - 2.0D), MathHelper.floor(mob.getY() - 2.0D), MathHelper.floor(mob.getZ() - 2.0D), MathHelper.floor(mob.getX() + 2.0D), MathHelper.floor(mob.getY()), MathHelper.floor(mob.getZ() + 2.0D));
-//            Iterator var3 = iterable.iterator();
-//
-//            while (var3.hasNext()) {
-//                BlockPos blockPos2 = (BlockPos) var3.next();
-//                if (mob.world.getFluidState(blockPos2).matches(FluidTags.LAVA)) {
-//                    blockPos = blockPos2;
-//                    break;
-//                }
-//            }
-//
-//            if (blockPos != null) {
-//                mob.getMoveControl().moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1.0D);
-//            }
-//        }
-//    }
 }

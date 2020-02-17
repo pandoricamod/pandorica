@@ -1,30 +1,37 @@
 package io.github.pandoricamod.entity.magmator;
 
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
+import com.google.common.collect.ImmutableList;
+import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
 
-public class MagmatorEntityModel extends EntityModel<MagmatorEntity> {
-    private final ModelPart bone;
+public class MagmatorEntityModel extends CompositeEntityModel<MagmatorEntity> {
+    private final ModelPart head;
+    private final ModelPart crest;
+    private final ModelPart leftLeg;
+    private final ModelPart rightLeg;
 
     public MagmatorEntityModel() {
         textureWidth = 128;
         textureHeight = 128;
 
-        bone = new ModelPart(this);
-        bone.setPivot(0.0F, 24.0F, 0.0F);
-        bone.addCuboid("leg_l", -14.0F, -37.0F, -4.0F, 8, 37, 8, 0.0F, 0, 53);
-        bone.addCuboid("leg_r", 8.0F, -37.0F, -4.0F, 8, 37, 8, 0.0F, 0, 53);
-        bone.addCuboid("crest", -8.0F, -28.0F, -8.0F, 18, 11, 16, 0.0F, 0, 0);
-        bone.addCuboid("head", -7.0F, -37.0F, -7.0F, 16, 12, 14, 0.0F, 0, 27);
+        head = new ModelPart(this, 0, 27);
+        head.addCuboid(-7.0F, -9.0F, -7.0F, 16, 12, 14);
+        crest = new ModelPart(this);
+        crest.addCuboid(-8.0F, 0.0F, -8.0F, 18, 11, 16);
+        leftLeg = new ModelPart(this, 0, 53);
+        leftLeg.addCuboid(-14.0F, -13.0F, -4.0F, 8, 37, 8);
+        rightLeg = new ModelPart(this, 0, 53);
+        rightLeg.addCuboid(8.0F, -13.0F, -4.0F, 8, 37, 8);
     }
 
-    @Override
-    public void setAngles(MagmatorEntity magmatorEntity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {}
+    public Iterable<ModelPart> getParts() {
+        return ImmutableList.of(head, crest, leftLeg, rightLeg);
+    }
 
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-        bone.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+    public void setAngles(MagmatorEntity magmatorEntity, float f, float g, float h, float i, float j) {
+        float k = 0.4F * g;
+        leftLeg.pitch = MathHelper.cos(f * 0.6662F + 3.1415927F) * k;
+        rightLeg.pitch = MathHelper.cos(f * 0.6662F) * k;
     }
 }

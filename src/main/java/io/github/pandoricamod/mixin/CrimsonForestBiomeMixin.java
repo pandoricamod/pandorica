@@ -17,6 +17,6 @@ public class CrimsonForestBiomeMixin extends Biome {
 
     @Inject(at = @At("RETURN"), method = "<init>()V")
     private void init(CallbackInfo info) {
-        this.addSpawn(EntityCategory.MONSTER, new SpawnEntry(PandoricaEntities.MAGMATOR, 5, 3, 4));
+        this.addSpawn(EntityCategory.MONSTER, new SpawnEntry(PandoricaEntities.MAGMATOR, 1, 1, 1));
     }
 }
