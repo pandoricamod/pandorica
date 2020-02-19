@@ -17,6 +17,6 @@ public class NetherWastesBiomeMixin extends Biome {
 
     @Inject(at = @At("RETURN"), method = "<init>()V")
     private void init(CallbackInfo info) {
-        this.addSpawn(EntityCategory.MONSTER, new SpawnEntry(PandoricaEntities.LIQUEFIED_SKELETON, 5, 2, 4));
+        addSpawn(EntityCategory.MONSTER, new SpawnEntry(PandoricaEntities.LIQUEFIED_SKELETON, 5, 3, 5));
     }
 }

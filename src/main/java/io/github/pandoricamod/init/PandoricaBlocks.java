@@ -15,11 +15,8 @@ import net.minecraft.block.LogBlock;
 import net.minecraft.block.MagmaBlock;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
-import net.minecraft.block.SignBlock;
 import net.minecraft.block.SlabBlock;
-import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.PressurePlateBlock.ActivationRule;
-import net.minecraft.util.SignType;
 
 public class PandoricaBlocks {
     // define blocks
@@ -42,7 +39,7 @@ public class PandoricaBlocks {
     public static final Block WEEPING_WOOD = register("weeping_wood", new PillarBlock(FabricBlockSettings.copy(Blocks.OAK_WOOD).build()));
     public static final Block STRIPPED_WEEPING_WOOD = register("stripped_weeping_wood", new PillarBlock(FabricBlockSettings.copy(Blocks.STRIPPED_OAK_WOOD).build()));
 
-    public static final Block ERUPTION_BLOCK = register("eruption_block", new EruptionBlockBlock(FabricBlockSettings.copy(Blocks.NETHERRACK).build()));
+    public static final Block ERUPTION_BLOCK = register("eruption_block", new EruptionBlock(FabricBlockSettings.copy(Blocks.NETHERRACK).build()));
     public static final Block MAGMATIC_NETHERRACK = register("magmatic_netherrack", new MagmaBlock(FabricBlockSettings.copy(Blocks.NETHERRACK).build()));
 
 //    public static final Block WAILING_LOG = register("wailing_log", new LogBlock(MaterialColor.WOOD, FabricBlockSettings.copy(Blocks.OAK_LOG).build()));

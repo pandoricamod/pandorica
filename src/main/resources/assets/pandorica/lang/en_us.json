@@ -39,5 +39,7 @@
     "subtitles.entity.liquefied_skeleton.ambient": "Liquefied Skeleton rattles",
     "subtitles.entity.liquefied_skeleton.death": "Liquefied Skeleton dies",
     "subtitles.entity.liquefied_skeleton.hurt": "Liquefied Skeleton hurts",
-    "subtitles.entity.liquefied_skeleton.step": "Liquefied Skeleton steps"
+    "subtitles.entity.liquefied_skeleton.step": "Liquefied Skeleton steps",
+
+    "death.attack.ambush":  "%1$s was ambushed by %2$s"
 }
