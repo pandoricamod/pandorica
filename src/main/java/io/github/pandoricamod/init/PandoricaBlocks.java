@@ -6,17 +6,9 @@ import io.github.pandoricamod.Pandorica;
 import io.github.pandoricamod.block.*;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tools.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.LogBlock;
-import net.minecraft.block.MagmaBlock;
-import net.minecraft.block.MaterialColor;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.PressurePlateBlock.ActivationRule;
+import net.minecraft.sound.BlockSoundGroup;
 
 public class PandoricaBlocks {
     // define blocks
@@ -39,14 +31,9 @@ public class PandoricaBlocks {
     public static final Block WEEPING_WOOD = register("weeping_wood", new PillarBlock(FabricBlockSettings.copy(Blocks.OAK_WOOD).build()));
     public static final Block STRIPPED_WEEPING_WOOD = register("stripped_weeping_wood", new PillarBlock(FabricBlockSettings.copy(Blocks.STRIPPED_OAK_WOOD).build()));
 
-    public static final Block ERUPTION_BLOCK = register("eruption_block", new EruptionBlock(FabricBlockSettings.copy(Blocks.NETHERRACK).build()));
-    public static final Block MAGMATIC_NETHERRACK = register("magmatic_netherrack", new MagmaBlock(FabricBlockSettings.copy(Blocks.NETHERRACK).build()));
-
-//    public static final Block WAILING_LOG = register("wailing_log", new LogBlock(MaterialColor.WOOD, FabricBlockSettings.copy(Blocks.OAK_LOG).build()));
-//    public static final Block STRIPPED_WAILING_LOG = register("stripped_wailing_log", new LogBlock(MaterialColor.WOOD, FabricBlockSettings.copy(Blocks.STRIPPED_OAK_LOG).build()));
-//    public static final Block WAILING_PLANKS = registerCopiedBlock("wailing_planks", Blocks.OAK_PLANKS);
-//    public static final Block WAILING_WOOD = register("wailing_wood", new PillarBlock(FabricBlockSettings.copy(Blocks.OAK_WOOD).build()));
-//    public static final Block STRIPPED_WAILING_WOOD = register("stripped_wailing_wood", new PillarBlock(FabricBlockSettings.copy(Blocks.STRIPPED_OAK_WOOD).build()));
+    public static final Block ERUPTION_BLOCK = register(EruptionBlock.id, new EruptionBlock(FabricBlockSettings.copy(Blocks.NETHERRACK).build()));
+    public static final Block MAGMATIC_NETHERRACK = register("magmatic_netherrack", new MagmaBlock(FabricBlockSettings.copy(Blocks.MAGMA_BLOCK).build()));
+    public static final Block MAGMA_CREAM_BLOCK = register(MagmaCreamBlock.id, new MagmaCreamBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.NETHER).lightLevel(3).slipperiness(0.8F).sounds(BlockSoundGroup.SLIME).build()));
 
     public static void addAdditionalBlockProperties() {
         addStrippingFunctionality(WEEPING_LOG, STRIPPED_WEEPING_LOG);

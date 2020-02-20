@@ -1,0 +1,10 @@
+{
+    "replace": false,
+    "values": [
+        "minecraft:stone",
+        "minecraft:netherrack",
+        "minecraft:crimson_nylium",
+        "minecraft:warped_nylium",
+        "minecraft:magma_block"
+    ]
+}
