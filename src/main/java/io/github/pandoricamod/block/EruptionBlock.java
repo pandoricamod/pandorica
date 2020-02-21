@@ -1,10 +1,9 @@
 package io.github.pandoricamod.block;
 
 import io.github.pandoricamod.init.PandoricaTags;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -20,25 +19,8 @@ public class EruptionBlock extends FallingBlock {
     public void onLanding(World world, BlockPos pos, BlockState fallingBlockState, BlockState currentStateInPos) {
         super.onLanding(world, pos, fallingBlockState, currentStateInPos);
 
-        spawnEffects(world, pos);
         landReplacement(world, pos, 1);
         world.breakBlock(pos, true);
-    }
-
-    @Environment(EnvType.CLIENT)
-    private static void spawnEffects(World world, BlockPos pos) {
-        Random random = new Random();
-        for(int i = 0; i < 300; ++i) {
-            int j = random.nextInt(2) * 2 - 1;
-            int k = random.nextInt(2) * 2 - 1;
-            double x = (double)pos.getX() + 0.5D + 0.25D * (double)j;
-            double y = (float)pos.getY() + random.nextFloat();
-            double z = (double)pos.getZ() + 0.5D + 0.25D * (double)k;
-            double dx = random.nextFloat() * (float)j;
-            double dy = ((double)random.nextFloat() - 0.5D) * 0.125D;
-            double dz = random.nextFloat() * (float)k;
-            world.addParticle(ParticleTypes.LAVA, x, y, z, dx, dy, dz);
-        }
     }
 
     public static void landReplacement(World world, BlockPos pos, int range) {
@@ -51,6 +33,7 @@ public class EruptionBlock extends FallingBlock {
             Block blockIteration = world.getBlockState(posIteration).getBlock();
                 if (PandoricaTags.blocks.ERUPTION_BLOCK_CONVERTIBLE.contains(blockIteration)) {
                     world.breakBlock(posIteration, false);
+                    spawnParticles(world, posIteration);
 
                     if (blockIteration == Blocks.MAGMA_BLOCK) {
                         convertBlock(world, posIteration, Blocks.LAVA);
@@ -63,6 +46,16 @@ public class EruptionBlock extends FallingBlock {
                     }
             }
         }
+    }
+    private static void spawnParticles(World world, BlockPos pos) {
+        Random random = new Random();
+            int j = random.nextInt(2) * 2 - 1;
+            int k = random.nextInt(2) * 2 - 1;
+            double x = (double)pos.getX() + 0.5D + 0.25D * (double)j;
+            double y = (float)pos.getY() + random.nextFloat();
+            double z = (double)pos.getZ() + 0.5D + 0.25D * (double)k;
+            double delta = 0.25;
+            ((ServerWorld)world).spawnParticles(ParticleTypes.LAVA, x, y, z, 3, delta, delta, delta, 0);
     }
     private static void convertBlock(World world, BlockPos pos, Block block) {
         world.setBlockState(pos, block.getDefaultState());
