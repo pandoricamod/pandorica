@@ -3,7 +3,6 @@ package io.github.pandoricamod.init;
 import io.github.pandoricamod.Pandorica;
 import io.github.pandoricamod.entity.liquefied_skeleton.*;
 import io.github.pandoricamod.entity.magmator.*;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityDimensions;
@@ -20,11 +19,4 @@ public class PandoricaEntities {
             new Identifier(Pandorica.MOD_ID, MagmatorEntity.id),
             FabricEntityTypeBuilder.create(EntityCategory.MONSTER, MagmatorEntity::new).setImmuneToFire()
                     .size(EntityDimensions.fixed(1.85F, 2.3F)).build());
-
-    public static void registerRenderers() {
-        EntityRendererRegistry.INSTANCE.register(LIQUEFIED_SKELETON,
-                (entityRenderDispatcher, context) -> new LiquefiedSkeletonEntityRenderer(entityRenderDispatcher));
-        EntityRendererRegistry.INSTANCE.register(MAGMATOR,
-                (entityRenderDispatcher, context) -> new MagmatorEntityRenderer(entityRenderDispatcher, new MagmatorEntityModel(), 0.7f));
-    }
 }
