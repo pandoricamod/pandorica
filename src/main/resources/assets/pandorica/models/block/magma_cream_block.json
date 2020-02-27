@@ -1,6 +1,7 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/template_glazed_terracotta",
     "textures": {
-        "all": "pandorica:block/magma_cream_block"
+        "particle": "pandorica:block/magma_cream_block",
+        "pattern": "pandorica:block/magma_cream_block"
     }
 }
