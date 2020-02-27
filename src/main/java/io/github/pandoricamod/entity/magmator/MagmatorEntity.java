@@ -172,7 +172,7 @@ public class MagmatorEntity extends HostileEntity {
             }
 
             if (mob.world.getGameRules().getBoolean(GameRules.MOB_GRIEFING)) {
-                EruptionBlock.landReplacement(mob.world, new BlockPos(mob), 4);
+                EruptionBlock.landReplacement(mob.world, new BlockPos(mob), 4, false);
             }
         }
         private void shieldBlockCooldownCheck(PlayerEntity player, ItemStack itemStack) {
