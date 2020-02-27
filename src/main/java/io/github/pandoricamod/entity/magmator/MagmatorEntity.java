@@ -132,7 +132,7 @@ public class MagmatorEntity extends HostileEntity {
             LivingEntity target = mob.getTarget();
             boolean isInRange = mob.squaredDistanceTo(mob.getTarget()) <= distanceToStart * distanceToStart;
 
-            if (mob.onGround) {
+            if (mob.method_24828()) {
                 if (!isInRange) {
                     canDamage = false;
                 }

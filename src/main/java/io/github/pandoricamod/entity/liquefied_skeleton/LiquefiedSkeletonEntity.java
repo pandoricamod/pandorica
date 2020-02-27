@@ -191,7 +191,7 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
         public boolean shouldContinue() {
             if (!mob.isInLava()) {
                 return false;
-            } else if (!mob.onGround) {
+            } else if (!mob.method_24828()) {
                 return false;
             } else {
                 return PandoricaCommon.StaticMeleeAttackGoal.shouldContinue(mob, pauseWhenMobIdle);
@@ -214,7 +214,7 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
         public void checkAmbushStatus(MobEntity mob) {
             LivingEntity target = mob.getTarget();
 
-            if (mob.onGround && mob.squaredDistanceTo(target) <= distanceToStart * distanceToStart && mob.getY() < target.getY()) {
+            if (mob.method_24828() && mob.squaredDistanceTo(target) <= distanceToStart * distanceToStart && mob.getY() < target.getY()) {
                 ambush(target);
             }
             if (mob.squaredDistanceTo(mob.getTarget()) <= getSquaredMaxAttackDistance()) {
