@@ -16,14 +16,11 @@ public class EruptionBlock extends FallingBlock {
         super(settings);
     }
 
-    public void onLanding(World world, BlockPos pos, BlockState fallingBlockState, BlockState currentStateInPos) {
-        super.onLanding(world, pos, fallingBlockState, currentStateInPos);
+    public static void landReplacement(World world, BlockPos pos, int range, boolean breakBlock) {
+        if (breakBlock) {
+            world.breakBlock(pos, true);
+        }
 
-        landReplacement(world, pos, 1);
-        world.breakBlock(pos, true);
-    }
-
-    public static void landReplacement(World world, BlockPos pos, int range) {
         BlockPos hitBlockPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
 
         range = Math.min(range, 6) / 2;
@@ -32,17 +29,21 @@ public class EruptionBlock extends FallingBlock {
         for (BlockPos posIteration : area) {
             Block blockIteration = world.getBlockState(posIteration).getBlock();
                 if (PandoricaTags.blocks.ERUPTION_BLOCK_CONVERTIBLE.contains(blockIteration)) {
-                    world.breakBlock(posIteration, false);
-                    spawnParticles(world, posIteration);
+                    Block blockAbove = world.getBlockState(posIteration.up()).getBlock();
 
-                    if (blockIteration == Blocks.MAGMA_BLOCK) {
-                        convertBlock(world, posIteration, Blocks.LAVA);
-                    } else if (blockIteration == Blocks.NETHERRACK) {
-                        convertBlock(world, posIteration, Blocks.MAGMA_BLOCK);
-                    } else if (blockIteration == Blocks.STONE || blockIteration == Blocks.COBBLESTONE) {
-                        convertBlock(world, posIteration, Blocks.NETHERRACK);
-                    } else if (blockIteration == Blocks.WARPED_NYLIUM || blockIteration == Blocks.CRIMSON_NYLIUM) {
-                        convertBlock(world, posIteration, Blocks.NETHERRACK);
+                    if (blockAbove == Blocks.AIR || blockAbove == Blocks.CAVE_AIR || blockAbove == Blocks.VOID_AIR) {
+                        world.breakBlock(posIteration, false);
+                        spawnParticles(world, posIteration);
+
+                        if (blockIteration == Blocks.MAGMA_BLOCK) {
+                            convertBlock(world, posIteration, Blocks.LAVA);
+                        } else if (blockIteration == Blocks.NETHERRACK) {
+                            convertBlock(world, posIteration, Blocks.MAGMA_BLOCK);
+                        } else if (blockIteration == Blocks.STONE || blockIteration == Blocks.COBBLESTONE) {
+                            convertBlock(world, posIteration, Blocks.NETHERRACK);
+                        } else if (blockIteration == Blocks.WARPED_NYLIUM || blockIteration == Blocks.CRIMSON_NYLIUM) {
+                            convertBlock(world, posIteration, Blocks.NETHERRACK);
+                        }
                     }
             }
         }
