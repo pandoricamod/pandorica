@@ -7,9 +7,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
@@ -26,6 +27,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
+import java.util.Random;
 
 public class MagmatorEntity extends HostileEntity {
     public static final String id = "magmator";
@@ -58,19 +60,12 @@ public class MagmatorEntity extends HostileEntity {
         targetSelector.add(3, new FollowTargetGoal(this, IronGolemEntity.class, true));
     }
 
-    protected void initAttributes() {
-        super.initAttributes();
-        this.getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(75.0D);
-        this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-        this.getAttributeInstance(EntityAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.5D);
-        this.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
-        this.getAttributeInstance(EntityAttributes.ATTACK_KNOCKBACK).setBaseValue(1.5D);
-        this.getAttributeInstance(EntityAttributes.FOLLOW_RANGE).setBaseValue(32.0D);
+    public static DefaultAttributeContainer.Builder createHostileAttributes() {
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 75.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.5D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12.0D).add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.5D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
     }
 
-    @Override
-    public boolean canSpawn(IWorld world, SpawnType spawnType) {
-        return world.getBlockState(new BlockPos(getX(), getY() - 1, getZ())).getBlock() == Blocks.CRIMSON_NYLIUM;
+    public static boolean canMobSpawn(EntityType<? extends MobEntity> type, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return world.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).getBlock() == Blocks.CRIMSON_NYLIUM;
     }
 
     @Override
@@ -132,7 +127,7 @@ public class MagmatorEntity extends HostileEntity {
             LivingEntity target = mob.getTarget();
             boolean isInRange = mob.squaredDistanceTo(mob.getTarget()) <= distanceToStart * distanceToStart;
 
-            if (mob.method_24828()) {
+            if (mob.isOnGround()) {
                 if (!isInRange) {
                     canDamage = false;
                 }
@@ -172,7 +167,7 @@ public class MagmatorEntity extends HostileEntity {
             }
 
             if (mob.world.getGameRules().getBoolean(GameRules.MOB_GRIEFING)) {
-                EruptionBlock.landReplacement(mob.world, new BlockPos(mob), 4, false);
+                EruptionBlock.landReplacement(mob.world, new BlockPos(mob.getPos()), 4, false);
             }
         }
         private void shieldBlockCooldownCheck(PlayerEntity player, ItemStack itemStack) {

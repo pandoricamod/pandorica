@@ -39,7 +39,7 @@ public class PandoricaCommon {
                 return false;
             } else if (!pauseWhenMobIdle) {
                 return !mob.getNavigation().isIdle();
-            } else if (!mob.isInWalkTargetRange(new BlockPos(target))) {
+            } else if (!mob.isInWalkTargetRange(new BlockPos(target.getPos()))) {
                 return false;
             } else {
                 return !(target instanceof PlayerEntity) || !target.isSpectator() && !((PlayerEntity)target).isCreative();

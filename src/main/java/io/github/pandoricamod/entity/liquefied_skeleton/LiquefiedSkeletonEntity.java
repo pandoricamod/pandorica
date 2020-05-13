@@ -8,7 +8,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -33,6 +33,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 
 import java.util.EnumSet;
+import java.util.Objects;
+import java.util.Random;
 
 public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
     public static final String id = "liquefied_skeleton";
@@ -41,7 +43,10 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
     public LiquefiedSkeletonEntity(EntityType<? extends WitherSkeletonEntity> entityType, World world) {
         super(entityType, world);
 
-        setPathfindingPenalty(PathNodeType.LAVA, 0);
+        this.setPathfindingPenalty(PathNodeType.WATER, -1.0F);
+        this.setPathfindingPenalty(PathNodeType.LAVA, 0.0F);
+        this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
+        this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -78,21 +83,20 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
         outOfLavaDamageTick = tag.getInt("OutOfLavaDamageTick");
     }
 
-    @Override
-    public boolean canSpawn(IWorld world, SpawnType spawnType) {
+    public static boolean canMobSpawn(EntityType<? extends MobEntity> type, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
         double spawnLevel = 28;
         int lavaCount = 0;
 
         for (int i = 0; i < 5; i++) {
-            if (blockIsLava(getY() - i)) {
+            if (blockIsLava(new BlockPos(pos.getX(), pos.getY() - i, pos.getZ()), world.getWorld())) {
                 lavaCount++;
             }
         }
 
-        return !blockIsLava(spawnLevel - 1) && lavaCount >= 3;
+        return !blockIsLava(new BlockPos(pos.getX(), spawnLevel - 1, pos.getZ()), world.getWorld()) && lavaCount >= 3;
     }
-    private boolean blockIsLava(double y) {
-        return world.getBlockState(new BlockPos(getX(), y, getZ())).getFluidState().matches(FluidTags.LAVA);
+    private static boolean blockIsLava(BlockPos pos, World world) {
+        return world.getBlockState(pos).getFluidState().matches(FluidTags.LAVA);
     }
 
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {}
@@ -114,8 +118,8 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
 
     @Override
     public boolean tryAttack(Entity target) {
-        float f = (float) getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).getValue();
-        float g = (float) getAttributeInstance(EntityAttributes.ATTACK_KNOCKBACK).getValue();
+        float f = (float) Objects.requireNonNull(getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)).getValue();
+        float g = (float) Objects.requireNonNull(getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK)).getValue();
         if (target instanceof LivingEntity) {
             f += EnchantmentHelper.getAttackDamage(getMainHandStack(), ((LivingEntity) target).getGroup());
             g += (float) EnchantmentHelper.getKnockback(this);
@@ -191,7 +195,7 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
         public boolean shouldContinue() {
             if (!mob.isInLava()) {
                 return false;
-            } else if (!mob.method_24828()) {
+            } else if (!mob.isOnGround()) {
                 return false;
             } else {
                 return PandoricaCommon.StaticMeleeAttackGoal.shouldContinue(mob, pauseWhenMobIdle);
@@ -214,7 +218,7 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
         public void checkAmbushStatus(MobEntity mob) {
             LivingEntity target = mob.getTarget();
 
-            if (mob.method_24828() && mob.squaredDistanceTo(target) <= distanceToStart * distanceToStart && mob.getY() < target.getY()) {
+            if (mob.isOnGround() && mob.squaredDistanceTo(target) <= distanceToStart * distanceToStart && mob.getY() < target.getY()) {
                 ambush(target);
             }
             if (mob.squaredDistanceTo(mob.getTarget()) <= getSquaredMaxAttackDistance()) {

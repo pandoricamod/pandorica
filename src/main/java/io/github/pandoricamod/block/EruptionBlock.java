@@ -50,11 +50,10 @@ public class EruptionBlock extends FallingBlock {
     }
     private static void spawnParticles(World world, BlockPos pos) {
         Random random = new Random();
-            int j = random.nextInt(2) * 2 - 1;
-            int k = random.nextInt(2) * 2 - 1;
-            double x = (double)pos.getX() + 0.5D + 0.25D * (double)j;
+            int rand = random.nextInt(2) * 2 - 1;
+            double x = (double)pos.getX() + 0.5D + 0.25D * (double)rand;
             double y = (float)pos.getY() + random.nextFloat();
-            double z = (double)pos.getZ() + 0.5D + 0.25D * (double)k;
+            double z = (double)pos.getZ() + 0.5D + 0.25D * (double)rand;
             double delta = 0.25;
             ((ServerWorld)world).spawnParticles(ParticleTypes.LAVA, x, y, z, 3, delta, delta, delta, 0);
     }

@@ -5,7 +5,9 @@
     "name": "Pandorica",
     "description": "A few more Nether features mod for 1.16+",
     "authors": [
-        "the Pandorica Development Team"
+        "Edmord",
+        "Andante",
+        "grian"
     ],
     "contact": {
         "homepage": "https://pandoricamod.github.io",
@@ -27,12 +29,9 @@
         "pandorica.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=0.7.2",
+        "fabricloader": ">=0.8.2",
         "fabric": "*",
         "minecraft": "1.16.x",
-        "sheet-lib": ">=1.4.0"
-    },
-    "suggests": {
-        "flamingo": "*"
+        "sheet-lib": ">=1.7.0"
     }
 }

@@ -38,6 +38,11 @@ public class MagmaCreamBlock extends Block {
         }
     }
 
+    @Environment(EnvType.CLIENT)
+    public boolean hasEmissiveLighting(BlockState state) {
+        return true;
+    }
+
     private void addVelocity(Entity entity) {
         Vec3d vec3d = entity.getVelocity();
         if (vec3d.y < 0.0D) {
@@ -58,11 +63,6 @@ public class MagmaCreamBlock extends Block {
         }
 
         super.onSteppedOn(world, pos, entity);
-    }
-
-    @Environment(EnvType.CLIENT)
-    public boolean hasEmissiveLighting(BlockState state) {
-        return true;
     }
 
     public boolean allowsSpawning(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {

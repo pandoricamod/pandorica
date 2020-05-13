@@ -99,6 +99,7 @@
         ],
         "subtitle": "subtitles.entity.magmator.step"
     },
+
     "entity.liquefied_skeleton.ambient": {
         "sounds": [
             "mob/wither_skeleton/idle1",

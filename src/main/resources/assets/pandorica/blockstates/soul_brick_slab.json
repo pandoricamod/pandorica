@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "type=bottom,lavalogged=false": { "model": "pandorica:block/soul_brick_slab" },
+        "type=top,lavalogged=false": { "model": "pandorica:block/soul_brick_slab_top" },
+        "type=double,lavalogged=false": { "model": "pandorica:block/soul_bricks" },
+
+        "type=bottom,lavalogged=true": { "model": "pandorica:block/haunted_soul_brick_slab" },
+        "type=top,lavalogged=true": { "model": "pandorica:block/haunted_soul_brick_slab_top" },
+        "type=double,lavalogged=true": { "model": "pandorica:block/haunted_soul_bricks" }
+    }
+}

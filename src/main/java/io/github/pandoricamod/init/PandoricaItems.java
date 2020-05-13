@@ -8,6 +8,7 @@ import io.github.pandoricamod.item.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 
+@SuppressWarnings("unused")
 public class PandoricaItems {
     public static final Item BASALT_DUST = register("basalt_dust");
     public static final Item CRUSTED_MAGMA = register("crusted_magma");
@@ -25,6 +26,6 @@ public class PandoricaItems {
     }
     @SuppressWarnings("rawtypes")
     private static Item register(String entity_id, EntityType entity, int primaryColor, int secondaryColor) {
-        return SheetLib.spawnEggItem(Pandorica.MOD_ID, entity_id, Pandorica.ITEM_GROUP, 64, entity, primaryColor, secondaryColor);
+        return SheetLib.spawnEggItem(Pandorica.MOD_ID, entity_id, entity, Pandorica.ITEM_GROUP, 64, primaryColor, secondaryColor);
     }
 }

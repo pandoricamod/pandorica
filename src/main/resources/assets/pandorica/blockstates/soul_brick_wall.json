@@ -1,0 +1,59 @@
+{
+    "multipart": [
+        {   "when": { "up": "true", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_post" }
+        },
+        {   "when": { "north": "low", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_side", "uvlock": true }
+        },
+        {   "when": { "east": "low", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_side", "y": 90, "uvlock": true }
+        },
+        {   "when": { "south": "low", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_side", "y": 180, "uvlock": true }
+        },
+        {   "when": { "west": "low", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_side", "y": 270, "uvlock": true }
+        },
+        {   "when": { "north": "tall", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_side_tall", "uvlock": true }
+        },
+        {   "when": { "east": "tall", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_side_tall", "y": 90, "uvlock": true }
+        },
+        {   "when": { "south": "tall", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_side_tall", "y": 180, "uvlock": true }
+        },
+        {   "when": { "west": "tall", "lavalogged": "false" },
+            "apply": { "model": "pandorica:block/soul_brick_wall_side_tall", "y": 270, "uvlock": true }
+        },
+
+        {   "when": { "up": "true", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_post" }
+        },
+        {   "when": { "north": "low", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_side", "uvlock": true }
+        },
+        {   "when": { "east": "low", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_side", "y": 90, "uvlock": true }
+        },
+        {   "when": { "south": "low", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_side", "y": 180, "uvlock": true }
+        },
+        {   "when": { "west": "low", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_side", "y": 270, "uvlock": true }
+        },
+        {   "when": { "north": "tall", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_side_tall", "uvlock": true }
+        },
+        {   "when": { "east": "tall", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_side_tall", "y": 90, "uvlock": true }
+        },
+        {   "when": { "south": "tall", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_side_tall", "y": 180, "uvlock": true }
+        },
+        {   "when": { "west": "tall", "lavalogged": "true" },
+            "apply": { "model": "pandorica:block/haunted_soul_brick_wall_side_tall", "y": 270, "uvlock": true }
+        }
+    ]
+}

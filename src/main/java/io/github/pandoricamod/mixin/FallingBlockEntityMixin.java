@@ -28,7 +28,7 @@ public abstract class FallingBlockEntityMixin extends Entity {
         fallDistanceOnContact = (int)fallDistance;
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "net/minecraft/block/FallingBlock.onLanding(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/block/BlockState;)V"), cancellable = true)
+    @Inject(method = "tick", at = @At(value = "HEAD"), cancellable = true)
     private void tick(CallbackInfo cir) {
         if (block.getBlock() instanceof EruptionBlock) {
             EruptionBlock.landReplacement(world, new BlockPos(getX(), getY(), getZ()), Math.min(fallDistanceOnContact, 7), true);

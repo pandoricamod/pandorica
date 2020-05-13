@@ -25,10 +25,12 @@ public class MagmatorEntityModel extends CompositeEntityModel<MagmatorEntity> {
         rightLeg.addCuboid(8.0F, -13.0F, -4.0F, 8, 37, 8);
     }
 
+    @Override
     public Iterable<ModelPart> getParts() {
         return ImmutableList.of(head, crest, leftLeg, rightLeg);
     }
 
+    @Override
     public void setAngles(MagmatorEntity magmatorEntity, float f, float g, float h, float i, float j) {
         float k = 0.4F * g;
         leftLeg.pitch = MathHelper.cos(f * 0.6662F + 3.1415927F) * k;

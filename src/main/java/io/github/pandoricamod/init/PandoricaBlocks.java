@@ -1,55 +1,67 @@
 package io.github.pandoricamod.init;
 
 import co.origamigames.sheet.SheetLib;
-import co.origamigames.sheet.block.*;
+import co.origamigames.sheet.block.helpers.BlockWithDecor;
+import co.origamigames.sheet.block.helpers.WoodBlocks;
 import io.github.pandoricamod.Pandorica;
 import io.github.pandoricamod.block.*;
-import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tools.FabricToolTags;
+import io.github.pandoricamod.block.soul_bricks.*;
 import net.minecraft.block.*;
-import net.minecraft.block.PressurePlateBlock.ActivationRule;
 import net.minecraft.sound.BlockSoundGroup;
 
+@SuppressWarnings("unused")
 public class PandoricaBlocks {
-    // define blocks
-    public static final Block CRUMBLED_BASALT = register("crumbled_basalt", new FallingBlock(FabricBlockSettings.copy(Blocks.SAND).breakByTool(FabricToolTags.SHOVELS).build()));
-    public static final Block NETHER_GOLD_ORE = registerCopiedBlock("nether_gold_ore", Blocks.GOLD_ORE);
+    public static final BlockWithDecor SOUL_BRICKS = new BlockWithDecor(BlockWithDecorInfo.SOUL_BRICKS);
+    public static final WoodBlocks WEEPING_WOOD = new WoodBlocks(WoodBlocksInfo.WEEPING);
 
-    public static final Block WEEPING_BUTTON = register("weeping_button", new PublicWoodButtonBlock(FabricBlockSettings.copy(Blocks.OAK_BUTTON).build()));
-    public static final Block WEEPING_DOOR = register("weeping_door", new PublicDoorBlock(FabricBlockSettings.copy(Blocks.OAK_DOOR).build()));
-    public static final Block WEEPING_FENCE = register("weeping_fence", new FenceBlock(FabricBlockSettings.copy(Blocks.OAK_FENCE).build()));
-    public static final Block WEEPING_FENCE_GATE = register("weeping_fence_gate", new FenceGateBlock(FabricBlockSettings.copy(Blocks.OAK_FENCE_GATE).build()));
-    public static final Block WEEPING_LOG = register("weeping_log", new LogBlock(MaterialColor.WOOD, FabricBlockSettings.copy(Blocks.OAK_LOG).build()));
-    public static final Block STRIPPED_WEEPING_LOG = register("stripped_weeping_log", new LogBlock(MaterialColor.WOOD, FabricBlockSettings.copy(Blocks.STRIPPED_OAK_LOG).build()));
-    public static final Block WEEPING_PLANKS = registerCopiedBlock("weeping_planks", Blocks.OAK_PLANKS);
-    public static final Block WEEPING_PRESSURE_PLATE = register("weeping_pressure_plate", new PublicPressurePlateBlock(ActivationRule.EVERYTHING, FabricBlockSettings.copy(Blocks.OAK_PRESSURE_PLATE).build()));
-//    public static final Block WEEPING_SIGN = register("weeping_sign", new SignBlock(FabricBlockSettings.copy(Blocks.OAK_SIGN).build(), SignType.OAK));
-//    public static final Block WEEPING_WALL_SIGN = register("weeping_wall_sign", new WallSignBlock(FabricBlockSettings.copy(Blocks.OAK_WALL_SIGN).build(), SignType.OAK));
-    public static final Block WEEPING_STAIRS = register("weeping_stairs", new PublicStairsBlock(WEEPING_PLANKS.getDefaultState(), FabricBlockSettings.copy(Blocks.OAK_STAIRS).build()));
-    public static final Block WEEPING_SLAB = register("weeping_slab", new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_SLAB).build()));
-    public static final Block WEEPING_TRAPDOOR = register("weeping_trapdoor", new PublicTrapdoorBlock(FabricBlockSettings.copy(Blocks.OAK_TRAPDOOR).build()));
-    public static final Block WEEPING_WOOD = register("weeping_wood", new PillarBlock(FabricBlockSettings.copy(Blocks.OAK_WOOD).build()));
-    public static final Block STRIPPED_WEEPING_WOOD = register("stripped_weeping_wood", new PillarBlock(FabricBlockSettings.copy(Blocks.STRIPPED_OAK_WOOD).build()));
+    public static final Block CRUMBLED_BASALT = register("crumbled_basalt", new FallingBlock(AbstractBlock.Settings.copy(Blocks.SAND)));
 
-    public static final Block ERUPTION_BLOCK = register(EruptionBlock.id, new EruptionBlock(FabricBlockSettings.copy(Blocks.NETHERRACK).build()));
-    public static final Block MAGMATIC_NETHERRACK = register("magmatic_netherrack", new MagmaBlock(FabricBlockSettings.copy(Blocks.MAGMA_BLOCK).build()));
-    public static final Block MAGMA_CREAM_BLOCK = register(MagmaCreamBlock.id, new MagmaCreamBlock(FabricBlockSettings.of(Material.CLAY, MaterialColor.NETHER).lightLevel(3).slipperiness(0.8F).sounds(BlockSoundGroup.SLIME).build()));
-
-    public static void addAdditionalBlockProperties() {
-        addStrippingFunctionality(WEEPING_LOG, STRIPPED_WEEPING_LOG);
-        addStrippingFunctionality(WEEPING_WOOD, STRIPPED_WEEPING_WOOD);
-//        addStrippingFunctionality(WAILING_LOG, STRIPPED_WAILING_LOG);
-//        addStrippingFunctionality(WAILING_WOOD, STRIPPED_WAILING_WOOD);
-    }
+    public static final Block MAGMA_CREAM_BLOCK = register(MagmaCreamBlock.id, new MagmaCreamBlock(AbstractBlock.Settings.of(Material.CLAY, MaterialColor.NETHER).lightLevel((blockStatex) -> 8).slipperiness(0.8F).sounds(BlockSoundGroup.SLIME)));
+    public static final Block MAGMATIC_NETHERRACK = register("magmatic_netherrack", new MagmaBlock(AbstractBlock.Settings.copy(Blocks.MAGMA_BLOCK)));
+    public static final Block ERUPTION_BLOCK = register(EruptionBlock.id, new EruptionBlock(AbstractBlock.Settings.copy(Blocks.NETHERRACK)));
 
     private static Block register(String id, Block block) {
-        return SheetLib.block(Pandorica.MOD_ID, id, block, Pandorica.ITEM_GROUP);
+        return SheetLib.block(Pandorica.MOD_ID, id, Pandorica.ITEM_GROUP, block);
     }
     private static Block registerCopiedBlock(String id, Block block) {
-        return SheetLib.copiedBlock(Pandorica.MOD_ID, id, block, Pandorica.ITEM_GROUP);
+        return SheetLib.copiedBlock(Pandorica.MOD_ID, id, Pandorica.ITEM_GROUP, block);
     }
 
-    private static void addStrippingFunctionality(Block blockToBeStripped, Block blockAfterStrip) {
-        SheetLib.addStrippingFunctionality(blockToBeStripped, blockAfterStrip);
+    public static class BlockWithDecorInfo {
+        public static final BlockWithDecor.Info SOUL_BRICKS = new BlockWithDecor.Info();
+        public static BlockWithDecor.Info[] BLOCK_WITH_DECOR_INFO = { SOUL_BRICKS };
+
+        static {
+            SOUL_BRICKS.block_id = "soul_brick";
+            SOUL_BRICKS.isPlural = true;
+            SOUL_BRICKS.isFlammable = false;
+            SOUL_BRICKS.base = new SoulBricksBlock();
+            SOUL_BRICKS.slab = new SoulBrickSlabBlock();
+            SOUL_BRICKS.stairs = new SoulBrickStairsBlock();
+            SOUL_BRICKS.wall = new SoulBrickWallBlock();
+
+            for (BlockWithDecor.Info blockWithDecorInfo : BLOCK_WITH_DECOR_INFO) {
+                blockWithDecorInfo.mod_id = Pandorica.MOD_ID;
+                blockWithDecorInfo.item_group = Pandorica.ITEM_GROUP;
+            }
+        }
+    }
+    public static class WoodBlocksInfo {
+        public static final WoodBlocks.Info WEEPING = new WoodBlocks.Info();
+        public static WoodBlocks.Info[] WOOD_BLOCKS_INFO = { WEEPING };
+
+        static {
+            WEEPING.wood_id = "weeping";
+            WEEPING.hasLeaves = false;
+            WEEPING.isFlammable = false;
+            WEEPING.topMaterialColor = MaterialColor.RED;
+            WEEPING.sideMaterialColor = MaterialColor.RED_TERRACOTTA;
+            WEEPING.sideMaterialColorStripped = MaterialColor.PINK_TERRACOTTA;
+
+            for (WoodBlocks.Info woodBlockInfo : WOOD_BLOCKS_INFO) {
+                woodBlockInfo.mod_id = Pandorica.MOD_ID;
+                woodBlockInfo.item_group = Pandorica.ITEM_GROUP;
+            }
+        }
     }
 }
