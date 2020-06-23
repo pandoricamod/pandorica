@@ -6,6 +6,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
+import net.minecraft.block.MagmaBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -19,6 +20,10 @@ public class PandoricaBlocks {
     public static final Block MAGMA_CREAM_BLOCK = register(
         MagmaCreamBlock.id,
         new MagmaCreamBlock()
+    );
+    public static final Block MAGMATIC_NETHERRACK = register(
+        "magmatic_netherrack",
+        new MagmaBlock(AbstractBlock.Settings.copy(Blocks.MAGMA_BLOCK))
     );
 
     private static Block register(String id, Block block, boolean registerItem) {
