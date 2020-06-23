@@ -8,6 +8,7 @@ import net.minecraft.util.registry.Registry;
 public class PandoricaItems {
     public static final Item BASALT_DUST = register("basalt_dust");
     public static final Item CRUSTED_MAGMA = register("crusted_magma");
+    public static final Item LIQUEFIED_BONE = register("liquefied_bone");
 
     private static Item register(String id, Item item) {
         return Registry.register(Registry.ITEM, new Identifier(Pandorica.MOD_ID, id), item);
