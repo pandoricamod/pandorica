@@ -13,11 +13,12 @@ public class Pandorica implements ModInitializer {
     public static final String MOD_NAME = "Pandorica";
     public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(
         new Identifier(MOD_ID, "item_group"),
-        () -> new ItemStack(Items.NETHERRACK)
+        () -> new ItemStack(PandoricaBlocks.CRUMBLED_BASALT)
     );
 
     @Override
     public void onInitialize() {
+        new PandoricaItems();
         new PandoricaBlocks();
 
         System.out.println("Loaded " + MOD_NAME);
