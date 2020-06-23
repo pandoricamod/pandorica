@@ -1,6 +1,7 @@
 package io.github.pandoricamod.init;
 
 import io.github.pandoricamod.Pandorica;
+import io.github.pandoricamod.block.*;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -14,6 +15,10 @@ public class PandoricaBlocks {
     public static final Block CRUMBLED_BASALT = register(
         "crumbled_basalt",
         new FallingBlock(AbstractBlock.Settings.copy(Blocks.GRAY_CONCRETE_POWDER))
+    );
+    public static final Block MAGMA_CREAM_BLOCK = register(
+        MagmaCreamBlock.id,
+        new MagmaCreamBlock()
     );
 
     private static Block register(String id, Block block, boolean registerItem) {
