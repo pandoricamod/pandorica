@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "pandorica:block/soul_bricks",
-        "top": "pandorica:block/soul_bricks",
-        "side": "pandorica:block/soul_bricks"
-    }
-}
