@@ -40,7 +40,6 @@ public class PandoricaBlocks {
 
         return block;
     }
-
     private static Block register(String id, Block block) {
         return register(id, block, true);
     }
