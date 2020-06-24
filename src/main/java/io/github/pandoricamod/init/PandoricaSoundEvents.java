@@ -1,15 +1,15 @@
 package io.github.pandoricamod.init;
 
 import io.github.pandoricamod.Pandorica;
-// import io.github.pandoricamod.entity.liquefied_skeleton.LiquefiedSkeletonEntity;
-// import io.github.pandoricamod.entity.magmator.MagmatorEntity;
+import io.github.pandoricamod.entity.liquefied_skeleton.LiquefiedSkeletonEntity;
+import io.github.pandoricamod.entity.magmator.MagmatorEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class PandoricaSoundEvents {
-    public static final String magmator = "magmator"; // MagmatorEntity.id
-    public static final String liquefied_skeleton = "liquefied_skeleton"; // LiquefiedSkeletonEntity.id
+    public static final String magmator = MagmatorEntity.id;
+    public static final String liquefied_skeleton = LiquefiedSkeletonEntity.id;
 
     public static final SoundEvent ENTITY_MAGMATOR_AMBIENT = entityAmbient(magmator);
     public static final SoundEvent ENTITY_MAGMATOR_DEATH = entityDeath(magmator);

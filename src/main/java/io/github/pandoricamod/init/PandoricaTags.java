@@ -10,6 +10,7 @@ public class PandoricaTags {
     public static class block {
         public static final Tag<Block> AIR = register("air");
         public static final Tag<Block> ERUPTION_BLOCK_CONVERTIBLE = register("eruption_block_convertible");
+        public static final Tag<Block> UNSAFE_NETHER_SPAWN = register("unsafe_nether_spawn");
 
         private static Tag<Block> register(String path) {
             return TagRegistry.block(new Identifier(Pandorica.MOD_ID, path));

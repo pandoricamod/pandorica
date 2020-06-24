@@ -4,7 +4,10 @@
     "package": "io.github.pandoricamod.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": [
-        "FallingBlockEntityMixin"
+        "FallingBlockEntityMixin",
+
+        "NetherWastesBiomeMixin",
+        "CrimsonForestBiomeMixin"
     ],
     "injectors": {
         "defaultRequire": 1

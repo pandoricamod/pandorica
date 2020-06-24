@@ -11,27 +11,28 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 
 public class PandoricaWorldGen {
     public PandoricaWorldGen() {
-        addToMagmaDecorator(PandoricaBlocks.CRUMBLED_BASALT);
-    }
-
-    public static void addToMagmaDecorator(Block block) {
         for (Biome biome : Registry.BIOME) {
             if (biome.getCategory() == Biome.Category.NETHER) {
-                biome.addFeature(GenerationStep.Feature.UNDERGROUND_DECORATION, Feature.ORE
-                        .configure(
-                            new OreFeatureConfig(
-                                OreFeatureConfig.Target.NETHERRACK,
-                                block.getDefaultState(),
-                                33
-                            )
-                        )
-                        .createDecoratedFeature(
-                            Decorator.MAGMA.configure(
-                                new CountDecoratorConfig(4)
-                            )
-                        )
-                    );
+                addToMagmaDecorator(biome, PandoricaBlocks.CRUMBLED_BASALT);
             }
         }
+    }
+
+    public static void addToMagmaDecorator(Biome biome, Block block) {
+        biome.addFeature(
+            GenerationStep.Feature.UNDERGROUND_DECORATION,
+            Feature.ORE.configure (
+                new OreFeatureConfig (
+                    OreFeatureConfig.Target.NETHERRACK,
+                    block.getDefaultState(),
+                    33
+                )
+            )
+            .createDecoratedFeature (
+                Decorator.MAGMA.configure (
+                    new CountDecoratorConfig(4)
+                )
+            )
+        );
     }
 }
