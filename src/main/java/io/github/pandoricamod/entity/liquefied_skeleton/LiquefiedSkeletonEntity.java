@@ -1,9 +1,10 @@
 package io.github.pandoricamod.entity.liquefied_skeleton;
 
-import io.github.pandoricamod.entity.PandoricaDamageSource;
+import io.github.pandoricamod.init.PandoricaDamageSources;
 import io.github.pandoricamod.init.PandoricaSoundEvents;
 import io.github.pandoricamod.util.PandoricaCommon;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -17,15 +18,14 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.MobEntityWithAi;
 import net.minecraft.entity.mob.WitherSkeletonEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.tag.FluidTags;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -52,54 +52,52 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
     protected SoundEvent getAmbientSound() {
         return PandoricaSoundEvents.ENTITY_LIQUEFIED_SKELETON_AMBIENT;
     }
+
     protected SoundEvent getHurtSound(DamageSource source) {
         return PandoricaSoundEvents.ENTITY_LIQUEFIED_SKELETON_HURT;
     }
+
     protected SoundEvent getDeathSound() {
         return PandoricaSoundEvents.ENTITY_LIQUEFIED_SKELETON_DEATH;
     }
+
     protected void playStepSound(BlockPos pos, BlockState state) {
         playSound(PandoricaSoundEvents.ENTITY_LIQUEFIED_SKELETON_STEP, 0.15F, 1.0F);
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     protected void initGoals() {
-        goalSelector.add(0, new AmbushGoal(this, 0.6D, 16.0D, 1.0D, 1.0D, true));
-        goalSelector.add(3, new FleeEntityGoal(this, WolfEntity.class, 6.0F, 1.0D, 1.2D));
-        goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
-        goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        goalSelector.add(6, new LookAroundGoal(this));
-        targetSelector.add(1, new RevengeGoal(this));
-        targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, true));
-        targetSelector.add(3, new FollowTargetGoal(this, IronGolemEntity.class, true));
+        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.65D));
+
+        goalSelector.add(0, new AmbushGoal(this, 1D, 16.0D, 4.0D, 1.0D, true));
+
+        super.initGoals();
     }
 
     public void writeCustomDataToTag(CompoundTag tag) {
         super.writeCustomDataToTag(tag);
         tag.putInt("OutOfLavaDamageTick", outOfLavaDamageTick);
     }
+
     public void readCustomDataFromTag(CompoundTag tag) {
         super.readCustomDataFromTag(tag);
         outOfLavaDamageTick = tag.getInt("OutOfLavaDamageTick");
     }
 
-    public static boolean canMobSpawn(EntityType<? extends MobEntity> type, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        double spawnLevel = 28;
-        int lavaCount = 0;
-
-        for (int i = 0; i < 5; i++) {
-            if (blockIsLava(new BlockPos(pos.getX(), pos.getY() - i, pos.getZ()), world.getWorld())) {
-                lavaCount++;
-            }
-        }
-
-        return !blockIsLava(new BlockPos(pos.getX(), spawnLevel - 1, pos.getZ()), world.getWorld()) && lavaCount >= 3;
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        BlockPos pos = new BlockPos(getX(), getY(), getZ());
+        return world.getBlockState(pos.down()).isOf(Blocks.LAVA) && !world.isAir(pos);
     }
-    private static boolean blockIsLava(BlockPos pos, World world) {
-        return world.getBlockState(pos).getFluidState().matches(FluidTags.LAVA);
+    @Override
+    public boolean canSpawn(WorldView world) {
+        return world.intersectsEntities(this);
     }
 
-    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {}
+    @Override
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+        return false;
+    }
+
     protected void initEquipment(LocalDifficulty difficulty) {}
 
     protected void mobTick() {
@@ -111,6 +109,19 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
                 damage(DamageSource.DROWN, 2);
                 outOfLavaDamageTick = 0;
             }
+
+
+            Random random = new Random();
+                int rand = random.nextInt(2) * 2 - 1;
+            double delta = 0.25;
+            int count = 4;
+            for (int i = 0; i < count; i++) {
+                double x = getX() + 0.5D + 0.25D * (double)rand;
+                double y = (float)getY() + random.nextFloat();
+                double z = getZ() + 0.5D + 0.25D * (double)rand;
+
+                world.addParticle(ParticleTypes.LAVA, x, y, z, delta, delta, delta);
+            }
         } else {
             outOfLavaDamageTick = 0;
         }
@@ -118,11 +129,13 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
 
     @Override
     public boolean tryAttack(Entity target) {
-        float f = (float) Objects.requireNonNull(getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)).getValue();
-        float g = (float) Objects.requireNonNull(getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK)).getValue();
+        float f = (float)Objects.requireNonNull(getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE))
+                .getValue();
+        float g = (float)Objects.requireNonNull(getAttributeInstance(EntityAttributes.GENERIC_ATTACK_KNOCKBACK))
+                .getValue();
         if (target instanceof LivingEntity) {
-            f += EnchantmentHelper.getAttackDamage(getMainHandStack(), ((LivingEntity) target).getGroup());
-            g += (float) EnchantmentHelper.getKnockback(this);
+            f += EnchantmentHelper.getAttackDamage(getMainHandStack(), ((LivingEntity)target).getGroup());
+            g += (float)EnchantmentHelper.getKnockback(this);
         }
 
         int i = EnchantmentHelper.getFireAspect(this);
@@ -130,16 +143,18 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
             target.setOnFireFor(i * 4);
         }
 
-        boolean bl = target.damage(PandoricaDamageSource.ambush(this), f);
+        boolean bl = target.damage(PandoricaDamageSources.ambush(this), f);
         if (bl) {
             if (g > 0.0F && target instanceof LivingEntity) {
-                ((LivingEntity) target).takeKnockback(g * 0.5F, MathHelper.sin(yaw * 0.017453292F), -MathHelper.cos(yaw * 0.017453292F));
+                ((LivingEntity) target).takeKnockback(g * 0.5F, MathHelper.sin(yaw * 0.017453292F),
+                        -MathHelper.cos(yaw * 0.017453292F));
                 setVelocity(getVelocity().multiply(0.6D, 1.0D, 0.6D));
             }
 
             if (target instanceof PlayerEntity) {
-                PlayerEntity playerEntity = (PlayerEntity) target;
-                shieldBlockCooldownCheck(playerEntity, getMainHandStack(), playerEntity.isUsingItem() ? playerEntity.getActiveItem() : ItemStack.EMPTY);
+                PlayerEntity playerEntity = (PlayerEntity)target;
+                shieldBlockCooldownCheck(playerEntity, getMainHandStack(),
+                        playerEntity.isUsingItem() ? playerEntity.getActiveItem() : ItemStack.EMPTY);
             }
 
             dealDamage(this, target);
@@ -148,8 +163,10 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
 
         return bl;
     }
+
     private void shieldBlockCooldownCheck(PlayerEntity playerEntity, ItemStack itemStack, ItemStack itemStack2) {
-        if (!itemStack.isEmpty() && !itemStack2.isEmpty() && itemStack.getItem() instanceof AxeItem && itemStack2.getItem() == Items.SHIELD) {
+        if (!itemStack.isEmpty() && !itemStack2.isEmpty() && itemStack.getItem() instanceof AxeItem
+                && itemStack2.getItem() == Items.SHIELD) {
             float f = 0.25F + (float) EnchantmentHelper.getEfficiency(this) * 0.05F;
             if (random.nextFloat() < f) {
                 playerEntity.getItemCooldownManager().set(Items.SHIELD, 100);
@@ -186,16 +203,18 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
 
         public boolean canStart() {
             if (mob.isInLava()) {
-                return PandoricaCommon.StaticMeleeAttackGoal.canStart(mob, lastUpdateTime, path, getSquaredMaxAttackDistance());
+                return PandoricaCommon.StaticMeleeAttackGoal.canStart(mob, lastUpdateTime, path,
+                        getSquaredMaxAttackDistance());
             } else {
                 return false;
             }
         }
 
         public boolean shouldContinue() {
+            Vec3d velocity = mob.getVelocity();
             if (!mob.isInLava()) {
                 return false;
-            } else if (!mob.isOnGround()) {
+            } else if (!(mob.isOnGround() && (velocity.getX() == 0 && velocity.getZ() == 0)) || velocity.getY() >= 0.3d) {
                 return false;
             } else {
                 return PandoricaCommon.StaticMeleeAttackGoal.shouldContinue(mob, pauseWhenMobIdle);
@@ -218,12 +237,9 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
         public void checkAmbushStatus(MobEntity mob) {
             LivingEntity target = mob.getTarget();
 
-            if (mob.isOnGround() && mob.squaredDistanceTo(target) <= distanceToStart * distanceToStart && mob.getY() < target.getY()) {
+            Vec3d velocity = mob.getVelocity();
+            if ((mob.isOnGround() && mob.squaredDistanceTo(target) <= distanceToStart * distanceToStart && mob.getY() < target.getY()) || (velocity.getX() == 0 && velocity.getY() < 0 && velocity.getZ() == 0)) {
                 ambush(target);
-            }
-            if (mob.squaredDistanceTo(mob.getTarget()) <= getSquaredMaxAttackDistance()) {
-                mob.swingHand(Hand.MAIN_HAND);
-                mob.tryAttack(target);
             }
         }
 
@@ -235,7 +251,14 @@ public class LiquefiedSkeletonEntity extends WitherSkeletonEntity {
             }
 
             Vec3d rotation = mob.getRotationVector();
-            mob.setVelocity(rotation.x * velocityModifier * 2 , Math.min(Math.sqrt(mob.squaredDistanceTo(target)), 3.9D) * velocityModifier, rotation.z * velocityModifier * 2);
+            mob.setVelocity(rotation.x * velocityModifier * 2,
+                    Math.min(Math.sqrt(mob.squaredDistanceTo(target)), 3.9D) * velocityModifier,
+                    rotation.z * velocityModifier * 2);
+
+            mob.swingHand(Hand.MAIN_HAND);
+            target.damage(PandoricaDamageSources.ambush(mob), (float)mob.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() / 2);
+
+            mob.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0F, 1.0F);
         }
 
         protected double getSquaredMaxAttackDistance() {

@@ -2,11 +2,12 @@ package io.github.pandoricamod.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.util.math.BlockPos;
@@ -14,12 +15,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-// merge of slime and magma blocks
 public class MagmaCreamBlock extends Block {
     public static final String id = "magma_cream_block";
 
-    public MagmaCreamBlock(Settings settings) {
-        super(settings);
+    public MagmaCreamBlock() {
+        super(AbstractBlock.Settings.copy(Blocks.SLIME_BLOCK));
     }
 
     public void onLandedUpon(World world, BlockPos pos, Entity entity, float distance) {
@@ -34,7 +34,7 @@ public class MagmaCreamBlock extends Block {
         if (entity.bypassesLandingEffects()) {
             super.onEntityLand(world, entity);
         } else {
-            addVelocity(entity);
+            bounce(entity);
         }
     }
 
@@ -43,7 +43,7 @@ public class MagmaCreamBlock extends Block {
         return true;
     }
 
-    private void addVelocity(Entity entity) {
+    private void bounce(Entity entity) {
         Vec3d vec3d = entity.getVelocity();
         if (vec3d.y < 0.0D) {
             double d = entity instanceof LivingEntity ? 1.0D : 0.8D;
@@ -58,18 +58,11 @@ public class MagmaCreamBlock extends Block {
             entity.setVelocity(entity.getVelocity().multiply(e, 1.0D, e));
         }
 
-        if (!entity.isFireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
-            entity.damage(DamageSource.HOT_FLOOR, 0.5F);
+        if (!entity.isFireImmune() && entity instanceof LivingEntity
+                && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity)) {
+            entity.damage(DamageSource.HOT_FLOOR, 1.0F);
         }
 
         super.onSteppedOn(world, pos, entity);
-    }
-
-    public boolean allowsSpawning(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
-        return type.isFireImmune();
-    }
-
-    public boolean shouldPostProcess(BlockState state, BlockView world, BlockPos pos) {
-        return true;
     }
 }

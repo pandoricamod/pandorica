@@ -1,10 +1,12 @@
 {
     "replace": false,
     "values": [
+        "minecraft:cobblestone",
         "minecraft:stone",
         "minecraft:netherrack",
         "minecraft:crimson_nylium",
         "minecraft:warped_nylium",
+        "pandorica:magmatic_netherrack",
         "minecraft:magma_block"
     ]
 }

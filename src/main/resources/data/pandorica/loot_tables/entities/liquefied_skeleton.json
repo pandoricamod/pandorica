@@ -35,7 +35,7 @@
                     "name": "minecraft:nether_wart",
                     "functions": [
                         {
-                            "function": "set_count",
+                            "function": "minecraft:set_count",
                             "count": {
                                 "min": 0,
                                 "max": 3
@@ -49,7 +49,7 @@
                     "name": "pandorica:crusted_magma",
                     "functions": [
                         {
-                            "function": "set_count",
+                            "function": "minecraft:set_count",
                             "count": {
                                 "min": 0,
                                 "max": 1

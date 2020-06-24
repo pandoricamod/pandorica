@@ -2,6 +2,7 @@ package io.github.pandoricamod.entity.magmator;
 
 import io.github.pandoricamod.block.EruptionBlock;
 import io.github.pandoricamod.init.PandoricaSoundEvents;
+import io.github.pandoricamod.init.PandoricaTags;
 import io.github.pandoricamod.util.PandoricaCommon;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -23,7 +24,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.World;
 
 import java.util.EnumSet;
@@ -34,22 +35,26 @@ public class MagmatorEntity extends HostileEntity {
 
     public MagmatorEntity(EntityType<? extends HostileEntity> type, World world) {
         super(type, world);
+        this.getNavigation().setCanSwim(true);
     }
 
     protected SoundEvent getAmbientSound() {
         return PandoricaSoundEvents.ENTITY_MAGMATOR_AMBIENT;
     }
+
     protected SoundEvent getHurtSound(DamageSource source) {
         return PandoricaSoundEvents.ENTITY_MAGMATOR_HURT;
     }
+
     protected SoundEvent getDeathSound() {
         return PandoricaSoundEvents.ENTITY_MAGMATOR_DEATH;
     }
+
     protected void playStepSound(BlockPos pos, BlockState state) {
         playSound(PandoricaSoundEvents.ENTITY_MAGMATOR_STEP, 0.15F, 1.0F);
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected void initGoals() {
         goalSelector.add(0, new PoundGoal(this, 0.85D, 3.5D, 1.0D, 1.0D, true));
         goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
@@ -58,14 +63,23 @@ public class MagmatorEntity extends HostileEntity {
         targetSelector.add(1, new RevengeGoal(this));
         targetSelector.add(2, new FollowTargetGoal(this, PlayerEntity.class, true));
         targetSelector.add(3, new FollowTargetGoal(this, IronGolemEntity.class, true));
+        this.targetSelector.add(3, new FollowTargetGoal(this, PiglinEntity.class, true));
+        this.targetSelector.add(3, new FollowTargetGoal(this, HoglinEntity.class, true));
     }
 
     public static DefaultAttributeContainer.Builder createHostileAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 75.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.5D).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12.0D).add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.5D).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
+        return MobEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 75.0D)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.5D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 12.0D)
+                .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.5D)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
     }
 
-    public static boolean canMobSpawn(EntityType<? extends MobEntity> type, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
-        return world.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ())).getBlock() == Blocks.CRIMSON_NYLIUM;
+    @SuppressWarnings("unused")
+    public static boolean canSpawn(EntityType<MagmatorEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+        return !world.getBlockState(pos.down()).isOf(Blocks.LAVA) && !world.getBlockState(pos.down()).isIn(PandoricaTags.block.UNSAFE_NETHER_SPAWN) && !world.isAir(pos);
     }
 
     @Override
@@ -91,7 +105,8 @@ public class MagmatorEntity extends HostileEntity {
         private boolean canDamage = false;
         private boolean hasJumped = false;
 
-        public PoundGoal(MobEntityWithAi mob, double velocityMultiplier, double distanceToStart, double maxAttackDistance, double speed, boolean pauseWhenMobIdle) {
+        public PoundGoal(MobEntityWithAi mob, double velocityMultiplier, double distanceToStart,
+                double maxAttackDistance, double speed, boolean pauseWhenMobIdle) {
             this.mob = mob;
             this.velocityMultiplier = velocityMultiplier;
             this.distanceToStart = distanceToStart;
@@ -102,7 +117,8 @@ public class MagmatorEntity extends HostileEntity {
         }
 
         public boolean canStart() {
-            return PandoricaCommon.StaticMeleeAttackGoal.canStart(mob, lastUpdateTime, path, getSquaredMaxAttackDistance());
+            return PandoricaCommon.StaticMeleeAttackGoal.canStart(mob, lastUpdateTime, path,
+                    getSquaredMaxAttackDistance());
         }
 
         public boolean shouldContinue() {
@@ -118,7 +134,8 @@ public class MagmatorEntity extends HostileEntity {
         }
 
         public void tick() {
-            PandoricaCommon.StaticMeleeAttackGoal.tick(mob, updateCountdownTicks, pauseWhenMobIdle, targetX, targetY, targetZ, speed, ticksUntilAttack);
+            PandoricaCommon.StaticMeleeAttackGoal.tick(mob, updateCountdownTicks, pauseWhenMobIdle, targetX, targetY,
+                    targetZ, speed, ticksUntilAttack);
             checkPoundStatus(mob, velocityMultiplier);
         }
 
@@ -159,17 +176,19 @@ public class MagmatorEntity extends HostileEntity {
         private void poundDrop(LivingEntity target) {
             if (canDamage) {
                 if (target instanceof PlayerEntity) {
-                    shieldBlockCooldownCheck((PlayerEntity)target, target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
+                    shieldBlockCooldownCheck((PlayerEntity) target,
+                            target.isUsingItem() ? target.getActiveItem() : ItemStack.EMPTY);
                 }
 
                 mob.swingHand(Hand.MAIN_HAND);
                 mob.tryAttack(target);
             }
 
-            if (mob.world.getGameRules().getBoolean(GameRules.MOB_GRIEFING)) {
+            if (mob.world.getGameRules().getBoolean(GameRules.field_19388)) { // mob griefing
                 EruptionBlock.landReplacement(mob.world, new BlockPos(mob.getPos()), 4, false);
             }
         }
+
         private void shieldBlockCooldownCheck(PlayerEntity player, ItemStack itemStack) {
             if (!itemStack.isEmpty() && itemStack.getItem() == Items.SHIELD) {
                 player.getItemCooldownManager().set(Items.SHIELD, 150);

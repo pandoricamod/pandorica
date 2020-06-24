@@ -6,7 +6,7 @@
     ],
     "key": {
         "N": {
-            "item": "minecraft:netherrack"
+            "item": "pandorica:magmatic_netherrack"
         },
         "C": {
             "item": "pandorica:crusted_magma"

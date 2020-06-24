@@ -2,20 +2,23 @@
     "schemaVersion": 1,
     "id": "pandorica",
     "version": "${version}",
+
     "name": "Pandorica",
-    "description": "A few more Nether features mod for 1.16+",
+    "description": "This is an example description! Tell everyone what your mod is about!",
     "authors": [
         "Edmord",
         "Andante",
-        "grian"
+        "Qbert",
+        "squarticus"
     ],
     "contact": {
         "homepage": "https://pandoricamod.github.io",
-        "sources": "https://github.com/pandoricamod/pandorica",
-        "issues": "https://github.com/pandoricamod/pandorica/issues"
+        "sources": "https://github.com/pandoricamod/pandorica"
     },
-    "license": "GPL-3",
+
+    "license": "MIT",
     "icon": "pack.png",
+
     "environment": "*",
     "entrypoints": {
         "main": [
@@ -28,10 +31,10 @@
     "mixins": [
         "pandorica.mixins.json"
     ],
+
     "depends": {
-        "fabricloader": ">=0.8.2",
+        "fabricloader": ">=0.7.4",
         "fabric": "*",
-        "minecraft": "1.16.x",
-        "sheet-lib": ">=1.7.0"
+        "minecraft": "1.16.x"
     }
 }

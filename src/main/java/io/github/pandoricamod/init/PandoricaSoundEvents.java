@@ -23,16 +23,20 @@ public class PandoricaSoundEvents {
     private static SoundEvent register(String id) {
         return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(new Identifier(Pandorica.MOD_ID, id)));
     }
+    private static SoundEvent entity(String entity, String variation) {
+        return register("entity." + entity + "." + variation);
+    }
+
     private static SoundEvent entityAmbient(String entity) {
-        return register("entity." + entity + ".ambient");
+        return entity(entity, "ambient");
     }
     private static SoundEvent entityDeath(String entity) {
-        return register("entity." + entity + ".death");
+        return entity(entity, "death");
     }
     private static SoundEvent entityHurt(String entity) {
-        return register("entity." + entity + ".hurt");
+        return entity(entity, "hurt");
     }
     private static SoundEvent entityStep(String entity) {
-        return register("entity." + entity + ".step");
+        return entity(entity, "step");
     }
 }

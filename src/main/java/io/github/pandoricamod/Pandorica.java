@@ -6,22 +6,27 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
 
 public class Pandorica implements ModInitializer {
     public static final String MOD_ID = "pandorica";
-    public static final String MOD_PREFIX = MOD_ID + ":";
-    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_ID, "item_group"), () -> new ItemStack(PandoricaBlocks.ERUPTION_BLOCK));
+    public static final String MOD_PREFIX = new Identifier(MOD_ID, "").toString();
+    public static final String MOD_NAME = "Pandorica";
+    public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(
+        new Identifier(MOD_ID, "item_group"),
+        () -> new ItemStack(PandoricaBlocks.ERUPTION_BLOCK)
+    );
 
     @Override
     public void onInitialize() {
-        LogManager.getLogger(MOD_ID).info("[Pandorica] Loaded");
+        new PandoricaTags();
 
         new PandoricaItems();
         new PandoricaBlocks();
         new PandoricaEntities();
 
-        PandoricaWorldGen.addFeatures();
+        new PandoricaWorldGen();
+
+        System.out.println("Loaded " + MOD_NAME);
     }
 
     public static Identifier texture(String path) {

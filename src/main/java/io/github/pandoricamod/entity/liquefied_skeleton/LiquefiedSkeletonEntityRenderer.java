@@ -9,12 +9,12 @@ import net.minecraft.util.Identifier;
 public class LiquefiedSkeletonEntityRenderer extends WitherSkeletonEntityRenderer {
     private static final String entity_id = LiquefiedSkeletonEntity.id;
 
-    public LiquefiedSkeletonEntityRenderer(EntityRenderDispatcher entityRenderDispatcher_1) {
-        super(entityRenderDispatcher_1);
+    public LiquefiedSkeletonEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
+        super(entityRenderDispatcher);
     }
-    
+
     @Override
-	public Identifier getTexture(AbstractSkeletonEntity abstractSkeletonEntity_1) {
+    public Identifier getTexture(AbstractSkeletonEntity abstractSkeletonEntity_1) {
         return PandoricaEntities.texture(entity_id);
     }
 }

@@ -13,14 +13,31 @@ import net.minecraft.world.World;
 
 public class FungiSoupItem extends Item {
     public static final String id = "fungi_soup";
-    public static final Item.Settings item = new Item.Settings().maxCount(1).group(Pandorica.ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.3F).alwaysEdible().statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, 1), 0.25F).build());
 
-    public FungiSoupItem(Settings settings) {
-        super(settings);
+    public FungiSoupItem() {
+        super(
+            new Item.Settings()
+                .maxCount(1)
+                .group(Pandorica.ITEM_GROUP)
+                .food(
+                    new FoodComponent.Builder()
+                        .hunger(6)
+                        .saturationModifier(0.3F)
+                        .alwaysEdible()
+                        .statusEffect(
+                            new StatusEffectInstance(
+                                StatusEffects.REGENERATION,
+                                200,
+                                1
+                            ), 1F)
+                        .build()
+                )
+        );
     }
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         ItemStack itemStack = super.finishUsing(stack, world, user);
-        return user instanceof PlayerEntity && ((PlayerEntity) user).abilities.creativeMode ? itemStack : new ItemStack(Items.BOWL);
+        return user instanceof PlayerEntity && ((PlayerEntity) user).abilities.creativeMode ? itemStack
+                : new ItemStack(Items.BOWL);
     }
 }

@@ -1,6 +1,0 @@
-{
-    "variants": {
-        "lavalogged=false": { "model": "pandorica:block/soul_bricks" },
-        "lavalogged=true": { "model": "pandorica:block/haunted_soul_bricks" }
-    }
-}
