@@ -25,6 +25,10 @@ public class PandoricaBlocks {
         "magmatic_netherrack",
         new MagmaBlock(AbstractBlock.Settings.copy(Blocks.MAGMA_BLOCK))
     );
+    public static final Block ERUPTION_BLOCK = register(
+        EruptionBlock.id,
+        new EruptionBlock()
+    );
 
     private static Block register(String id, Block block, boolean registerItem) {
         Identifier blockIdentifier = new Identifier(Pandorica.MOD_ID, id);

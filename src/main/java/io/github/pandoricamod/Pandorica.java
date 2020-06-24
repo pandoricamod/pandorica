@@ -17,6 +17,8 @@ public class Pandorica implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        new PandoricaTags();
+
         new PandoricaItems();
         new PandoricaBlocks();
 

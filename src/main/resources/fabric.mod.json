@@ -25,7 +25,9 @@
             "io.github.pandoricamod.Pandorica"
         ]
     },
-    "mixins": [],
+    "mixins": [
+        "pandorica.mixins.json"
+    ],
 
     "depends": {
         "fabricloader": ">=0.7.4",
