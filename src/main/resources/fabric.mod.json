@@ -23,6 +23,9 @@
     "entrypoints": {
         "main": [
             "io.github.pandoricamod.Pandorica"
+        ],
+        "client": [
+            "io.github.pandoricamod.PandoricaClient"
         ]
     },
     "mixins": [
