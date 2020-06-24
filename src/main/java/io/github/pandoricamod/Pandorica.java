@@ -22,6 +22,8 @@ public class Pandorica implements ModInitializer {
         new PandoricaItems();
         new PandoricaBlocks();
 
+        new PandoricaWorldGen();
+
         System.out.println("Loaded " + MOD_NAME);
     }
 }
