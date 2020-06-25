@@ -184,15 +184,13 @@ public class MagmatorEntity extends HostileEntity {
                 mob.tryAttack(target);
             }
 
-            if (mob.world.getGameRules().getBoolean(GameRules.field_19388)) { // mob griefing
-                EruptionBlock.landReplacement(mob.world, new BlockPos(mob.getPos()), 4, false);
-            }
+            EruptionBlock.erupt(mob.world, new BlockPos(mob.getPos()), 4, false, !mob.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING));
         }
 
         private void shieldBlockCooldownCheck(PlayerEntity player, ItemStack itemStack) {
             if (!itemStack.isEmpty() && itemStack.getItem() == Items.SHIELD) {
                 player.getItemCooldownManager().set(Items.SHIELD, 150);
-                player.world.sendEntityStatus(player, (byte) 30);
+                mob.world.sendEntityStatus(player, (byte)30);
             }
         }
 

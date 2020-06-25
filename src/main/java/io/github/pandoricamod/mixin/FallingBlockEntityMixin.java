@@ -25,7 +25,7 @@ public abstract class FallingBlockEntityMixin extends Entity {
     @Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
     private void handleFallDamage(float fallDistance, float damageMultiplier, CallbackInfoReturnable<Boolean> cir) {
         if (block.getBlock() instanceof EruptionBlock) {
-            EruptionBlock.landReplacement(world, new BlockPos(getX(), getY(), getZ()), Math.min((int)fallDistance, 7), true);
+            EruptionBlock.erupt(world, new BlockPos(getX(), getY(), getZ()), Math.min((int)fallDistance, 7), true);
         }
     }
 }

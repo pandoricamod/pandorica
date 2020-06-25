@@ -20,7 +20,7 @@ public class EruptionBlock extends FallingBlock {
         super(AbstractBlock.Settings.copy(Blocks.NETHERRACK));
     }
 
-    public static void landReplacement(World world, BlockPos pos, int range, boolean breakBlock) {
+    public static void erupt(World world, BlockPos pos, int range, boolean breakBlock, boolean onlyVisual) {
         if (breakBlock) world.breakBlock(pos, true);
 
         BlockPos hitBlockPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
@@ -31,49 +31,48 @@ public class EruptionBlock extends FallingBlock {
         for (BlockPos posIteration : area) {
             Block block = world.getBlockState(posIteration).getBlock();
             if (PandoricaTags.block.ERUPTION_BLOCK_CONVERTIBLE.contains(block) && PandoricaTags.block.AIR.contains(world.getBlockState(posIteration.up()).getBlock())) {
-                Block newBlock = null;
-                switch (Registry.BLOCK.getId(block).toString()) {
-                    case "minecraft:stone":
-                        newBlock = Blocks.COBBLESTONE;
-                        break;
-                    case "minecraft:crimson_nylium":
-                        newBlock = Blocks.NETHERRACK;
-                        break;
-                    case "minecraft:warped_nylium":
-                        newBlock = Blocks.NETHERRACK;
-                        break;
-                    case "minecraft:cobblestone":
-                        newBlock = Blocks.NETHERRACK;
-                        break;
-                    case "minecraft:netherrack":
-                        newBlock = PandoricaBlocks.MAGMATIC_NETHERRACK;
-                        break;
-                    case "pandorica:magmatic_netherrack":
-                        newBlock = Blocks.MAGMA_BLOCK;
-                        break;
-                    case "minecraft:magma_block":
-                        newBlock = Blocks.LAVA;
-                        break;
-                }
-
-                if (newBlock != null) {
-                    world.breakBlock(posIteration, false);
-
-                    Random random = new Random();
-                        int rand = random.nextInt(2) * 2 - 1;
-                        double delta = 0.25;
-                        int count = 8;
-                    for (int i = 0; i < count; i++) {
-                        double x = (double)posIteration.getX() + 0.5D + 0.25D * (double)rand;
-                        double y = (float)posIteration.getY() + random.nextFloat();
-                        double z = (double)posIteration.getZ() + 0.5D + 0.25D * (double)rand;
-
-                        world.addParticle(ParticleTypes.LAVA, x, y, z, delta, delta, delta);
+                Block newBlock = block;
+                if (!onlyVisual) {
+                    switch (Registry.BLOCK.getId(block).toString()) {
+                        case "minecraft:stone":
+                            newBlock = Blocks.COBBLESTONE;
+                            break;
+                        case "minecraft:crimson_nylium":
+                        case "minecraft:warped_nylium":
+                        case "minecraft:cobblestone":
+                            newBlock = Blocks.NETHERRACK;
+                            break;
+                        case "minecraft:netherrack":
+                            newBlock = PandoricaBlocks.MAGMATIC_NETHERRACK;
+                            break;
+                        case "pandorica:magmatic_netherrack":
+                            newBlock = Blocks.MAGMA_BLOCK;
+                            break;
+                        case "minecraft:magma_block":
+                            newBlock = Blocks.LAVA;
+                            break;
                     }
-
-                    world.setBlockState(posIteration, newBlock.getDefaultState());
                 }
+
+                world.breakBlock(posIteration, false);
+
+                Random random = new Random();
+                int rand = random.nextInt(2) * 2 - 1;
+                double delta = 0.25;
+                int count = 8;
+                for (int i = 0; i < count; i++) {
+                    double x = (double)posIteration.getX() + 0.5D + 0.25D * (double)rand;
+                    double y = (float)posIteration.getY() + random.nextFloat();
+                    double z = (double)posIteration.getZ() + 0.5D + 0.25D * (double)rand;
+
+                    world.addParticle(ParticleTypes.LAVA, x, y, z, delta, delta, delta);
+                }
+
+                world.setBlockState(posIteration, newBlock.getDefaultState());
             }
         }
+    }
+    public static void erupt(World world, BlockPos pos, int range, boolean breakBlock) {
+        erupt(world, pos, range, breakBlock, false);
     }
 }
