@@ -2,16 +2,13 @@ package io.github.pandoricamod.init;
 
 import io.github.pandoricamod.Pandorica;
 import io.github.pandoricamod.block.*;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.block.MagmaBlock;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+@SuppressWarnings("unused")
 public class PandoricaBlocks {
     public static final Block CRUMBLED_BASALT = register(
         "crumbled_basalt",
@@ -29,6 +26,8 @@ public class PandoricaBlocks {
         EruptionBlock.id,
         new EruptionBlock()
     );
+
+    public static final Block POLISHED_NETHERRACK = register("polished_netherrack", new Block(AbstractBlock.Settings.of(Material.STONE, MaterialColor.STONE).requiresTool().strength(1.2F, 4.0F)));
 
     private static Block register(String id, Block block, boolean registerItem) {
         Identifier blockIdentifier = new Identifier(Pandorica.MOD_ID, id);
