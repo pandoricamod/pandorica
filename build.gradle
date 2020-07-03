@@ -13,7 +13,7 @@ if (System.env.CI == "true") {
 	branch = System.env.GITHUB_REF
 	branch = branch.substring(branch.lastIndexOf("/")+1)
 
-	version = "${project.mod_version}${System.env.GITHUB_RUN_NUMBER}.${branch}"
+	version = "${project.mod_version}+a${System.env.GITHUB_RUN_NUMBER}.${branch}"
 } else {
 	version = "${project.mod_version}+${project.minecraft_version}"
 }
