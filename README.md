@@ -1,8 +1,9 @@
 # Pandorica
 
-[![](https://img.shields.io/badge/api-fabric-orange.svg?style=flat-square)](https://www.curseforge.com/minecraft/mc-mods/fabric-api/files)
+[![FAPI](https://img.shields.io/badge/api-fabric-orange.svg?style=flat-square)](https://www.curseforge.com/minecraft/mc-mods/fabric-api/files)
+[![GitHub Releases](https://img.shields.io/github/v/release/pandoricamod/pandorica?include_prereleases&style=flat-square)](https://github.com/pandoricamod/pandorica/releases)
 [![Discord Server](https://img.shields.io/discord/629359147737022501.svg?color=blueviolet&style=flat-square)](https://discord.gg/ftzwyrA)
-[![](https://img.shields.io/github/v/release/pandoricamod/pandorica?include_prereleases&style=flat-square)](https://github.com/pandoricamod/pandorica/releases)
+![Gradle Package](https://github.com/pandoricamod/pandorica/workflows/Gradle%20Package/badge.svg?style=flat-square)
 
 ## Summary
 A few more Nether features mod for Minecraft 1.16+
